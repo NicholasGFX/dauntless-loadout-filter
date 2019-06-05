@@ -741,6 +741,30 @@ const equipment = {
         },
     ]
 }
+
+
+/*
+NOTE:
+The way this program currently works is it takes an array of desiredPerks that the user wants in their build.
+It then goes through the array and identifies what cell types are in use and creates a number of each type of cell
+which will be needed. It assumes you want to max the perks at 6/6, so it takes the cell type of the perk
+and adds two to the cellCount for that cell type. This action occurs in the findCellCounts function.
+
+
+Slightly below, in the potentialHeadArmour/LegArmour/ArmsArmour/TorsoArmour section, the program filters out items based on
+the cell type and the perk. Example:
+    name: "Gnasher Treads",
+    perk: "Tough",
+    cell: "Power",
+    perkCells: ["Defensive", "Power"],
+    element: "Neutral",
+    resistance: [25, 137.5]
+
+For an item like Gnasher's treads, which has the "Tough" perk (a Defensive perk) and a Power perk cell,
+the program will add it to the potential items array only if the user desires Tough in their list of perks and also has any
+perk which can use a "Power" cell on their list.
+*/
+
 //weapons
 const weapons = equipment.weapons
 const swords = equipment.weapons.swords
@@ -808,7 +832,8 @@ function findCellCounts() {
     })
 
     //////////////
-    //DELETE THIS IF/ELSE BELOW AND WRITE SOME LOGIC THAT TAKES USER WEAPON INPUT AND SUBTRACTS THE APPROPRIATE CELLS FROM THEIR RESPECTIVE CELLCOUNTS
+    // DELETE THIS IF/ELSE BELOW AND WRITE SOME LOGIC THAT
+    // TAKES USER WEAPON INPUT AND SUBTRACTS THE APPROPRIATE CELLS FROM THEIR RESPECTIVE CELLCOUNTS
     /////////////
     if(usingRepeaters) {
         console.log("Using Repeaters: " + true)
@@ -816,8 +841,7 @@ function findCellCounts() {
         mobilityCount = 0 //Find a better way to do this. Will cause bugs if someone WANTS a 6/6 mobility perk.
     }
     else {
-        //The user's weapon has three power cells, so detract them from the count.
-        //this assumes the user is not using repeaters and deducts the appropriate amount of count.
+        //If user's weapon has two power cells and one power perk, subtract 3 power count.
         powerCount -= 3
     }
     return cellsUsed = [...new Set(cellsUsed)]
@@ -832,8 +856,10 @@ console.log(`Mobility: ${mobilityCount}`)
 console.log(`Power: ${powerCount}`)
 console.log(`Defensive: ${defensiveCount}`)
 
-//iterates through helmets/chests/gloves/legs to find items which have a matching perk or cell type for the desired build. Fills up four arrays with all items
-//which meet the criteria.
+/*
+Iterates through helmets/chests/gloves/legs arrays to find all items which have a matching perk and cell type
+for the desired build. It then fills up four arrays with all items which meet the criteria.
+*/
 const potentialHeadArmour = [], potentialTorsoArmour = [], potentialArmsArmour = [], potentialLegsArmour = []
 head.forEach(headArmour => { 
     if(desiredPerks.includes(headArmour.perk) && cellsUsed.includes(headArmour.cell)) {
@@ -856,9 +882,7 @@ legs.forEach(legsArmour => {
     }
 })
 
-
-
-//Creates an array of every potential item combination based on pieces of gear which have perks/cells that the desired build uses.
+// Uses the four arrays created above to form a single array which contains every potential item combination.
 const listOfPotentialArmour = []
 potentialHeadArmour.forEach(headArmour => {
     potentialTorsoArmour.forEach(torsoArmour => {
@@ -870,9 +894,12 @@ potentialHeadArmour.forEach(headArmour => {
     })
 })
 
-//splits the array created above into smaller 4-length arrays which are then filtered for perk count.
-// It searches the perks to see how many it finds versus how many is needed in the build.
-//If the correct amount of perk type is found across all four items in the array, it outputs the array as loadout possibility and resets the counts.
+/*
+Splits the array created above into smaller 4-length arrays which are then filtered based on perk count.
+If one of the smaller arrays has the exact amount of each perk type required, it is output as a possible loadout and the
+found count of each cell is reset to zero. This is probably buggy, although I can't prove it since it works for every
+test I've done.
+*/
 let i, loadoutArray = [], sliceSize = 4
 for (let i = 0; i < listOfPotentialArmour.length; i += sliceSize) {
     loadoutArray = listOfPotentialArmour.slice(i, i + sliceSize)
