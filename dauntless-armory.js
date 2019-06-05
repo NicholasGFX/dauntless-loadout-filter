@@ -768,7 +768,7 @@ For example:
     }
 For an item like Gnasher's treads, which has the "Tough" perk (a Defensive perk) and a Power perk cell,
 the program will only add it to the potential items array if the user desires "Tough" in their desiredPerks and also any
-other perk which can use a "Power" cell on their list.
+other perk which can use a "Power" cell.
 */
 
 //weapons
@@ -816,7 +816,6 @@ let desiredPerks = ["Iceborne", "Rage", "Wild Frenzy", "Aetheric Attunement", "C
 //Finds the number of each cell type used in the build. This is used later to filter out bad potential loadouts which have too much of a certain cell type.
 let utilityCount = 0, techniqueCount = 0, mobilityCount = 0, powerCount = 0, defensiveCount = 0, cellsUsed = []
 function findCellCounts() {
-    utilityCount-- //Lantern always has one utility cell, so it is subtracted from the required count here.
     
     desiredPerks.forEach(perk => {
         if(perks.Defensive.includes(perk)) {
@@ -842,9 +841,14 @@ function findCellCounts() {
     })
 
     /*
-    DELETE THIS IF/ELSE BELOW AND WRITE SOME LOGIC THAT TAKES USER WEAPON INPUT
-    AND SUBTRACTS THE APPROPRIATE CELLS FROM THEIR RESPECTIVE CELLCOUNTS
+    From here until the return statement, the program is removing the weapon and lantern from the perk cellCounts.
+    The program should look at the weapon and determine what cellCounts are being used and make the appropriate
+    deductions from the counts which were created above.
+    
+    Currently the program requires it be done manually, but ideally there should be some logic that takes user weapon input
+    and deducts weapon cells from the counts automatically based on the database information.
     */
+     utilityCount-- //Lantern always has one utility cell, so it is subtracted from the required count here.
     if(usingRepeaters) {
         console.log("Using Repeaters: " + true)
         techniqueCount--
