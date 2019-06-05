@@ -746,15 +746,11 @@ const equipment = {
 /*
 NOTE:
 The way this program currently works is it takes an array of desiredPerks that the user wants in their build.
-
 It then goes through the array and identifies what cell types are in use and creates a cellCount for each cell type.
 If the item has a perk on it (almost all armour does) then it simply checks to see what type of perk it is
 (power, technique, utility, etc..) and adds that to the cell count.
-
 It also assumes you want to max the perks in the desiredPerks array at 6/6, so it takes the cell type of the perk and adds
 two to the cellCount for that cell type. This action occurs in the findCellCounts function.
-
-
 Later, in the potentialHeadArmour/LegArmour/ArmsArmour/TorsoArmour section, the program filters out items based on
 the cell type and the perk.
 For example:
@@ -789,80 +785,130 @@ const legs = equipment.armour.legs
 const lanterns = equipment.lanterns
 
 /*
-totalPerkSources = 12. Each armour piece can have two perks (one actual perk and a cell slot) for a total of eight,
+maxPerkSlots = 12. Each armour piece can have two perks (one actual perk and a cell slot) for a total of eight,
 a weapon can have three perks (one perk and two cell slots), and each lantern has one utility cell slot.
-Each perk has a max level of 3, meaning there is 36 sumOfMaximumPerkLevels.
-Repeaters/exotic weapons and exotic head armour all have one less perk slot. Using any of them will lower totalPerkSources.
+Repeaters/exotic weapons and exotic head armour all have one less perk slot. Using any of them will lower maxPerkSlots.
 */
 
-let totalPerkSources = 12
-let sumOfMaximumPerkLevels = totalPerkSources * 3
-let totalMaxedPerksAvailable = sumOfMaximumPerkLevels / 6
-
-//Build-altering toggles which change the totalPerkSources
+let maxPerkSlots = 12
+let totalPerkSlotsUsed = 0
+let totalUniquePerks = 0
 let usingRepeaters = true
 let usingExoticWeapon = false
 let usingExoticHeadArmour = false
 if (usingRepeaters || usingExoticWeapon || usingExoticHeadArmour) {
-    if (usingRepeaters || usingExoticWeapon) {totalPerkSources--}
-    if (usingExoticHeadArmour) {totalPerkSources--}
+    if (usingRepeaters || usingExoticWeapon) {maxPerkSlots--}
+    if (usingExoticHeadArmour) {maxPerkSlots--}
 }
 
-//User should only have to input their weapon and the perks they want. Perhaps add ability to set perk levels desired.
-let userWeaponPerk =  "" //doesn't work yet
-let userWeaponCells = "" //doesn't work yet
-let desiredPerks = ["Iceborne", "Rage", "Wild Frenzy", "Aetheric Attunement", "Conduit"]
+//Add code to auto-populate one of these perk slots if the user's desired weapon has a perk on it.
+//Weapon will not have a perk if usingRepeaters or usingExoticWeapon
+let desiredPerks = [
+    {name: "Iceborne", type: "Defensive", level: 6},
+    {name: "Rage", type: "Power", level: 6},
+    {name: "Wild Frenzy", type: "Technique", level: 6},
+    {name: "Aetheric Attunement", type: "Utility", level: 6},
+    {name: "Conduit", type: "Utility", level: 6},
+    {name: "Swift", type: "Mobility", level: 3},
+    {name: "", type: "", level: 0},
+    {name: "", type: "", level: 0},
+    {name: "", type: "", level: 0},
+    {name: "", type: "", level: 0},
+    {name: "", type: "", level: 0},
+    {name: "", type: "", level: 0},
+]
 
-//Finds the number of each cell type used in the build. This is used later to filter out bad potential loadouts which have too much of a certain cell type.
+//Loops through desiredPerks and finds the totalUniquePerks, totalPerkSlotsUsed,
+//each cell type's count, and populates the cellsUsed array
 let utilityCount = 0, techniqueCount = 0, mobilityCount = 0, powerCount = 0, defensiveCount = 0, cellsUsed = []
-function findCellCounts() {
-    
-    desiredPerks.forEach(perk => {
-        if(perks.Defensive.includes(perk)) {
-            cellsUsed.push("Defensive")
-            defensiveCount += 2; //adds two because I assume the user wants to 6/6 the perk.
+for (let i = 0; i < desiredPerks.length; i++) {
+    if (desiredPerks[i]["name"].length > 0) {
+        totalUniquePerks++
+        if (desiredPerks[i]["level"] > 3) {
+            console.log(`${desiredPerks[i]["name"]} requires two perk slots.`)
+            totalPerkSlotsUsed += 2
+            switch (desiredPerks[i]["type"]) {
+                case "Utility":
+                    utilityCount += 2
+                    cellsUsed.push("Utility")
+                    break;
+                case "Technique":
+                    techniqueCount += 2
+                    cellsUsed.push("Technique")
+                    break;
+                case "Mobility":
+                    mobilityCount += 2
+                    cellsUsed.push("Mobility")
+                    break;
+                case "Power":
+                    powerCount += 2
+                    cellsUsed.push("Power")
+                    break;
+                case "Defensive":
+                    defensiveCount += 2
+                    cellsUsed.push("Defensive")
+                    break;
+            }
         }
-        else if(perks.Mobility.includes(perk)) {
-            cellsUsed.push("Mobility")
-            mobilityCount += 2;
+        else if (desiredPerks[i]["level"] > 0) {
+            console.log(`${desiredPerks[i]["name"]} requires one perk slot.`)
+            totalPerkSlotsUsed++
+            switch (desiredPerks[i]["type"]) {
+                case "Utility":
+                    utilityCount++
+                    cellsUsed.push("Utility")
+                    break;
+                case "Technique":
+                    techniqueCount++
+                    cellsUsed.push("Technique")
+                    break;
+                case "Mobility":
+                    mobilityCount++
+                    cellsUsed.push("Mobility")
+                    break;
+                case "Power":
+                    powerCount++
+                    cellsUsed.push("Power")
+                    break;
+                case "Defensive":
+                    defensiveCount++
+                    cellsUsed.push("Defensive")
+                    break;
+            }
         }
-        else if(perks.Power.includes(perk)) {
-            cellsUsed.push("Power")
-            powerCount += 2;
-        }
-        else if(perks.Technique.includes(perk)) {
-            cellsUsed.push("Technique")
-            techniqueCount += 2;
-        }
-        else if(perks.Utility.includes(perk)) {
-            cellsUsed.push("Utility")
-            utilityCount += 2;
-        }
-    })
-
-    /*
-    From here until the return statement, the program is removing the weapon and lantern from the perk cellCounts.
-    The program should look at the weapon and determine what cellCounts are being used and make the appropriate
-    deductions from the counts which were created above.
-    
-    Currently the program requires it be done manually, but ideally there should be some logic that takes user weapon input
-    and deducts weapon cells from the counts automatically based on the database information.
-    */
-     utilityCount-- //Lantern always has one utility cell, so it is subtracted from the required count here.
-    if(usingRepeaters) {
-        console.log("Using Repeaters: " + true)
-        techniqueCount--
-        mobilityCount = 0 //Find a better way to do this. Will cause bugs if someone WANTS a 6/6 mobility perk.
     }
-    else {
-        //If user's weapon has two power cells and one power perk, subtract 3 power count.
-        powerCount -= 3
-    }
-    return cellsUsed = [...new Set(cellsUsed)] //returns cellsUsed array without duplicates if any are found.
 }
 
-findCellCounts()
-console.log(`Desired Perks (6/6): ${desiredPerks}`)
+/*
+Here the program is removing the weapon and lantern from the perk cellCounts.
+The program should look at the weapon and determine what cellCounts are being used and make the appropriate
+deductions from the counts which were created above.
+
+Currently the program requires it be done manually, but ideally there should be some logic that takes user weapon input
+and deducts weapon cells from the counts automatically based on the database information.
+*/
+utilityCount-- //Lantern always has one utility cell, so it is subtracted from the required count here.
+if (usingRepeaters) {
+    console.log("Using Repeaters: " + true)
+    techniqueCount--
+    mobilityCount = 0 //Find a better way to do this. Will cause bugs if someone WANTS a 6/6 mobility perk.
+}
+else {
+    //If user's weapon has two power cells and one power perk, subtract 3 from the powerCount.
+    powerCount -= 3
+}
+
+cellsUsed = [...new Set(cellsUsed)] //removes duplicate cell entries
+console.log(cellsUsed)
+
+if (totalPerkSlotsUsed < maxPerkSlots) {
+    console.log(`You still have ${maxPerkSlots - totalPerkSlotsUsed} perk slot(s) available ${totalPerkSlotsUsed}/${maxPerkSlots}.
+    \nYou can increase a perk's level to be above 3 or add a new perk.`)
+}
+else if (totalPerkSlotsUsed > maxPerkSlots) {
+    console.log(`${totalPerkSlotsUsed - maxPerkSlots} too many perk slot(s) in use ${totalPerkSlotsUsed}/${maxPerkSlots}.
+    \nYou must decrease a perk's level or remove a perk.`)
+}
 console.log(`Required Cells: `)
 console.log(`Utility: ${utilityCount}`)
 console.log(`Technique: ${techniqueCount}`)
@@ -870,31 +916,45 @@ console.log(`Mobility: ${mobilityCount}`)
 console.log(`Power: ${powerCount}`)
 console.log(`Defensive: ${defensiveCount}`)
 
-/*
-Iterates through helmets/chests/gloves/legs arrays to find all items which have a matching perk and cell type
-for the desired build. It then fills up four arrays with all items which meet the criteria.
-*/
+//There's probably a way to achieve the result below in a single for loop.
 const potentialHeadArmour = [], potentialTorsoArmour = [], potentialArmsArmour = [], potentialLegsArmour = []
-head.forEach(headArmour => { 
-    if(desiredPerks.includes(headArmour.perk) && cellsUsed.includes(headArmour.cell)) {
-        potentialHeadArmour.push(headArmour)
+for (let i = 0; i < head.length; i++) {
+    for (let j = 0; j < totalUniquePerks; j++) {
+        if (desiredPerks[j]["name"].includes(head[i].perk) && cellsUsed.includes(head[i].cell)) {
+            potentialHeadArmour.push(head[i])
+        }
+        
     }
-})
-torso.forEach(torsoArmour => {
-    if(desiredPerks.includes(torsoArmour.perk) && cellsUsed.includes(torsoArmour.cell)) {
-        potentialTorsoArmour.push(torsoArmour)
+}
+for (let i = 0; i < torso.length; i++) {
+    for (let j = 0; j < totalUniquePerks; j++) {
+        if (desiredPerks[j]["name"].includes(torso[i].perk) && cellsUsed.includes(torso[i].cell)) {
+            potentialTorsoArmour.push(torso[i])
+        }
+        
     }
-})
-arms.forEach(armsArmour => {
-    if(desiredPerks.includes(armsArmour.perk) && cellsUsed.includes(armsArmour.cell)) {
-        potentialArmsArmour.push(armsArmour)
+}
+for (let i = 0; i < arms.length; i++) {
+    for (let j = 0; j < totalUniquePerks; j++) {
+        if (desiredPerks[j]["name"].includes(arms[i].perk) && cellsUsed.includes(arms[i].cell)) {
+            potentialArmsArmour.push(arms[i])
+        }
+        
     }
-})
-legs.forEach(legsArmour => {
-    if(desiredPerks.includes(legsArmour.perk) && cellsUsed.includes(legsArmour.cell)) {
-        potentialLegsArmour.push(legsArmour)
+}
+for (let i = 0; i < legs.length; i++) {
+    for (let j = 0; j < totalUniquePerks; j++) {
+        if (desiredPerks[j]["name"].includes(legs[i].perk) && cellsUsed.includes(legs[i].cell)) {
+            potentialLegsArmour.push(legs[i])
+        }
+        
     }
-})
+}
+
+console.log(potentialHeadArmour)
+console.log(potentialTorsoArmour)
+console.log(potentialArmsArmour)
+console.log(potentialLegsArmour)
 
 // Uses the four arrays created above to form a single array which contains every potential item combination.
 const listOfPotentialArmour = []
