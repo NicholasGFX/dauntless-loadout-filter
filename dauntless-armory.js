@@ -746,23 +746,29 @@ const equipment = {
 /*
 NOTE:
 The way this program currently works is it takes an array of desiredPerks that the user wants in their build.
-It then goes through the array and identifies what cell types are in use and creates a number of each type of cell
-which will be needed. It assumes you want to max the perks at 6/6, so it takes the cell type of the perk
-and adds two to the cellCount for that cell type. This action occurs in the findCellCounts function.
+
+It then goes through the array and identifies what cell types are in use and creates a cellCount for each cell type.
+If the item has a perk on it (almost all armour does) then it simply checks to see what type of perk it is
+(power, technique, utility, etc..) and adds that to the cell count.
+
+It also assumes you want to max the perks in the desiredPerks array at 6/6, so it takes the cell type of the perk and adds
+two to the cellCount for that cell type. This action occurs in the findCellCounts function.
 
 
-Slightly below, in the potentialHeadArmour/LegArmour/ArmsArmour/TorsoArmour section, the program filters out items based on
-the cell type and the perk. Example:
+Later, in the potentialHeadArmour/LegArmour/ArmsArmour/TorsoArmour section, the program filters out items based on
+the cell type and the perk.
+For example:
+    {
     name: "Gnasher Treads",
     perk: "Tough",
     cell: "Power",
     perkCells: ["Defensive", "Power"],
     element: "Neutral",
     resistance: [25, 137.5]
-
+    }
 For an item like Gnasher's treads, which has the "Tough" perk (a Defensive perk) and a Power perk cell,
-the program will add it to the potential items array only if the user desires Tough in their list of perks and also has any
-perk which can use a "Power" cell on their list.
+the program will only add it to the potential items array if the user desires "Tough" in their desiredPerks and also any
+other perk which can use a "Power" cell on their list.
 */
 
 //weapons
@@ -782,14 +788,18 @@ const arms = equipment.armour.arms
 const legs = equipment.armour.legs
 const lanterns = equipment.lanterns
 
-//totalPerkSources = 12. Each armour piece can have two perks for a total of eight, a weapon can have three perks, and each lantern has one utility perk slot.
-//Each perk has a max level of 3, meaning there is a max of 36 perk levels.
-//Repeaters/exotic weapons and exotic head armour all have one less perk slot. Using any of them will lower totalPerkSources.
+/*
+totalPerkSources = 12. Each armour piece can have two perks (one actual perk and a cell slot) for a total of eight,
+a weapon can have three perks (one perk and two cell slots), and each lantern has one utility cell slot.
+Each perk has a max level of 3, meaning there is 36 sumOfMaximumPerkLevels.
+Repeaters/exotic weapons and exotic head armour all have one less perk slot. Using any of them will lower totalPerkSources.
+*/
+
 let totalPerkSources = 12
 let sumOfMaximumPerkLevels = totalPerkSources * 3
 let totalMaxedPerksAvailable = sumOfMaximumPerkLevels / 6
 
-//Build-altering toggles. Explained in the comments above totalPerkSources.
+//Build-altering toggles which change the totalPerkSources
 let usingRepeaters = true
 let usingExoticWeapon = false
 let usingExoticHeadArmour = false
@@ -798,7 +808,7 @@ if (usingRepeaters || usingExoticWeapon || usingExoticHeadArmour) {
     if (usingExoticHeadArmour) {totalPerkSources--}
 }
 
-//User should only have to input their weapon and the perks they want. Nothing else should be required.
+//User should only have to input their weapon and the perks they want. Perhaps add ability to set perk levels desired.
 let userWeaponPerk =  "" //doesn't work yet
 let userWeaponCells = "" //doesn't work yet
 let desiredPerks = ["Iceborne", "Rage", "Wild Frenzy", "Aetheric Attunement", "Conduit"]
@@ -806,12 +816,12 @@ let desiredPerks = ["Iceborne", "Rage", "Wild Frenzy", "Aetheric Attunement", "C
 //Finds the number of each cell type used in the build. This is used later to filter out bad potential loadouts which have too much of a certain cell type.
 let utilityCount = 0, techniqueCount = 0, mobilityCount = 0, powerCount = 0, defensiveCount = 0, cellsUsed = []
 function findCellCounts() {
-    utilityCount-- //lantern always has one utility cell. It is subtracted from the required count here.
+    utilityCount-- //Lantern always has one utility cell, so it is subtracted from the required count here.
     
     desiredPerks.forEach(perk => {
         if(perks.Defensive.includes(perk)) {
             cellsUsed.push("Defensive")
-            defensiveCount += 2;
+            defensiveCount += 2; //adds two because I assume the user wants to 6/6 the perk.
         }
         else if(perks.Mobility.includes(perk)) {
             cellsUsed.push("Mobility")
@@ -831,10 +841,10 @@ function findCellCounts() {
         }
     })
 
-    //////////////
-    // DELETE THIS IF/ELSE BELOW AND WRITE SOME LOGIC THAT
-    // TAKES USER WEAPON INPUT AND SUBTRACTS THE APPROPRIATE CELLS FROM THEIR RESPECTIVE CELLCOUNTS
-    /////////////
+    /*
+    DELETE THIS IF/ELSE BELOW AND WRITE SOME LOGIC THAT TAKES USER WEAPON INPUT
+    AND SUBTRACTS THE APPROPRIATE CELLS FROM THEIR RESPECTIVE CELLCOUNTS
+    */
     if(usingRepeaters) {
         console.log("Using Repeaters: " + true)
         techniqueCount--
@@ -844,7 +854,7 @@ function findCellCounts() {
         //If user's weapon has two power cells and one power perk, subtract 3 power count.
         powerCount -= 3
     }
-    return cellsUsed = [...new Set(cellsUsed)]
+    return cellsUsed = [...new Set(cellsUsed)] //returns cellsUsed array without duplicates if any are found.
 }
 
 findCellCounts()
