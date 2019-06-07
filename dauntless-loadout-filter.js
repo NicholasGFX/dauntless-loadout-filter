@@ -1286,6 +1286,40 @@ if (usingRepeaters || usingExoticWeapon || usingExoticHeadArmour) {
     if (usingExoticHeadArmour) {maxPerkSlots--}
 }
 
+//Looks up weapon by name provided, returns array with the
+//perk and both cells.
+function findWeaponPerksAndCells (userWeapon) {
+    for (let j = 0; j < swords.length; j++) {
+        if (swords[j].name === userWeapon) {
+            return [swords[j].perk, swords[j].cells]
+        }
+    }
+    for (let k = 0; k < hammers.length; k++) {
+        if (hammers[k].name === userWeapon) {
+            return [hammers[k].perk, hammers[k].cells]
+        }
+    }
+    for (let l = 0; l < axes.length; l++) {
+        if (axes[l].name === userWeapon) {
+            return [axes[l].perk, axes[l].cells]
+        }
+    }
+    for (let m = 0; m < chainBlades.length; m++) {
+        if (chainBlades[m].name === userWeapon) {
+            return [chainBlades[m].perk, chainBlades[m].cells]
+        }
+    }
+    for (let n = 0; n < warPikes.length; n++) {
+        if (warPikes[n].name === userWeapon) {
+            return [warPikes[n].perk, warPikes[n].cells]
+        }
+    }
+        
+}
+//use returned array to add the perk to the desiredPerks Array and reduce
+//perkCounts by the appropriate amount.
+console.log(findWeaponPerksAndCells('Raging Bite'))
+
 //Add code to auto-populate one of these perk slots if the user's desired weapon has a perk on it.
 //Weapon will not have a perk if usingRepeaters or usingExoticWeapon
 let desiredPerks = [
