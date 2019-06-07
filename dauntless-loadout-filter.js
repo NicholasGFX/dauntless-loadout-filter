@@ -12,36 +12,603 @@ const equipment = {
                 name: "Raging Blade",
                 perk: "Ragehunter",
                 cells: ["Utility", "Defensive"],
-                perkCells: ["Power", "Utility", "Defensive"],
-                element: "Neutral"
-            },
-            {
+                element: "Neutral",
+                effect: "None"
+            },{
                 name: "Cry of the Shrike",
                 perk: "Conditioning",
                 cells: ["Mobility", "Mobility"],
-                perkCells: ["Mobility", "Mobility", "Mobility"],
-                element: "Neutral"
-            },
-        ],
+                element: "Neutral",
+                effect: "+50 part damage on next hit after a dodge."
+            },{
+                name: "Quillshot's Tusk",
+                perk: "Acidic",
+                cells: ["Technique", "Defensive"],
+                element: "Neutral",
+                effect: "None"
+            },{
+                name: "Skarn's Rancor",
+                perk: "Knockout King",
+                cells: ["Power", "Defensive"],
+                element: "Terra",
+                effect: "Dealing damage has a chance (based on damage dealt) to grant a stacking, refreshing 40 health shield that lasts for 12s."
+            },{
+                name: "Charred Saber",
+                perk: "Aetherhunter",
+                cells: ["Power", "Defensive"],
+                element: "Blaze",
+                effect: "None"
+            },{
+                name: "Winter Ice",
+                perk: "Nimble",
+                cells: ["Technique", "Mobility"],
+                element: "Frost",
+                effect: "Evading drops a trio of Ice Mines on a 30 second cooldown."
+            },{
+                name: "Ember Cutlass",
+                perk: "Evasive Fury",
+                cells: ["Technique", "Mobility"],
+                element: "Blaze",
+                effect: "The seventh hit in a row deals +250% part damage."
+            },{
+                name: "Thundering Blade",
+                perk: "Aetheric Attunement",
+                cells: ["Power", "Utility"],
+                element: "Shock",
+                effect: "20% damage vs Behemoth Tails."
+            },{
+                name: "Nayzaga's Razor",
+                perk: "Barbed",
+                cells: ["Utility", "Mobility"],
+                element: "Shock",
+                effect: "+5% lifesteal vs wounded parts."
+            },{
+                name: "Pangar's Call",
+                perk: "Kncokout King",
+                cells: ["Power", "Defensive"],
+                element: "Frost",
+                effect: "None"
+            },{
+                name: "Inferno's Razor",
+                perk: "Overpower",
+                cells: ["Power", "Power"],
+                element: "Blaze",
+                effect: "The eighth hit in quick succession deals 250 bonus damage and major blaze damage."
+            },{
+                name: "Storm Sword",
+                perk: "Energized",
+                cells: ["Technique", "Mobility"],
+                element: "Shock",
+                effect: "After dodging through an attack, the next weapon attack has 300% meter gain."
+            },{
+                name: "Kharabak's Spur",
+                perk: "Bladestorm",
+                cells: ["Technique", "Mobility"],
+                element: "Terra",
+                effect: "None"
+            },{
+                name: "Call of Dawn",
+                perk: "Cunning",
+                cells: ["Technique", "Utility"],
+                element: "Radiant",
+                effect: "10% chance for attacks to hit twice."
+            },{
+                name: "Verge of Night",
+                perk: "Cunning",
+                cells: ["Power", "Utility"],
+                element: "Umbral",
+                effect: "When under 20% health, deal +50% damage."
+            },{
+                name: "Sovereign's Torment",
+                perk: "Sharpened",
+                cells: ["Power", "Utility"],
+                element: "Terra",
+                effect: "After not dealing damage for 6 seconds, the next 4 attacks deal 25% increased damage."
+            },{
+                name: "Stalker's Strike",
+                perk: "Wild Frenzy",
+                cells: ["Technique", "Utility"],
+                element: "Umbral",
+                effect: "Dealing damage has a chance (based on damage dealt) to generate a Shadow Orb that increases damage dealt by 2.5% for 5 seconds. If 5 or more Orbs are present, the bonus doubles."
+            },{
+                name: "Valomyr's Regard",
+                perk: "Aetherhunter",
+                cells: ["Power", "Utility"],
+                element: "Radiant",
+                effect: "Once charged, your next attack will deal 550 bonus radiant damage. Charge rate increases with current health."
+            },{
+                name: "Onus of Boreus",
+                perk: "Conditioning",
+                cells: ["Power", "Defensive"],
+                element: "Frost",
+                effect: "Using a Special continually generates Frost Sprites that cause your next attack to deal 50 bonus damage and minor frost damage. Max 4 Sprites."
+            },{
+                name: "The Hunger",
+                perk: "None",
+                cells: ["Power", "Utility"],
+                element: "Umbral",
+                effect: "Activate at full meter to enter Feast, taking damage over time but gaining significant lifesteal, attack speed, and creating aetheric waves with each attack that deal area damage."
+            }],
         hammers: [
-
-        ],
+            {
+                name: "Fall of the Shrike",
+                perk: "Conditioning",
+                cells: ["Power", "Mobility"],
+                element: "None",
+                effect: "+100 part damage on next hit after a dodge."
+            },{
+                name: "Quillshot's Roar‎",
+                perk: "Acidic",
+                cells: ["Power", "Defensive"],
+                element: "None",
+                effect: "None"
+            },{
+                name: "Skarn's Vengeance",
+                perk: "Knockout King",
+                cells: ["Power", "Defensive"],
+                element: "Terra",
+                effect: "Dealing damage has a chance (based on damage dealt) to grant a stacking, refreshing 40 health shield that lasts for 12s."
+            },{
+                name: "Charred Crusher",
+                perk: "Aetherhunter",
+                cells: ["Power", "Power"],
+                element: "Blaze",
+                effect: "None"
+            },{
+                name: "Ember Maul",
+                perk: "Evasive Fury",
+                cells: ["Power", "Mobility"],
+                element: "Blaze",
+                effect: "The fifth hit in a row deals +150% stagger damage."
+            },{
+                name: "Winter Squall‎",
+                perk: "Nimble",
+                cells: ["Power", "Mobility"],
+                element: "Frost",
+                effect: "Evading drops a trio of Ice Mines on a 30 second cooldown."
+            },{
+                name: "Thundering Maul‎‎",
+                perk: "Aetheric Attunement",
+                cells: ["Power", "Defensive"],
+                element: "Shock",
+                effect: "20% damage vs Behemoth Heads."
+            },{
+                name: "Nayzaga's Charge‎",
+                perk: "Savagery",
+                cells: ["Power", "Utility"],
+                element: "Shock",
+                effect: "Heal for 300 whenever a Behemoth is staggered."
+            },{
+                name: "Pangar's Rampage",
+                perk: "Knockout King",
+                cells: ["Power", "Defensive"],
+                element: "Frost",
+                effect: "None"
+            },{
+                name: "Inferno's Burden",
+                perk: "Overpower",
+                cells: ["Power", "Power"],
+                element: "Blaze",
+                effect: "The sixth hit in quick succession deals 250 bonus damage and major blaze damage."
+            },{
+                name: "Storm Hammer",
+                perk: "Aetheric Attunement",
+                cells: ["Power", "Mobility"],
+                element: "Terra",
+                effect: "Restore 30 stamina after reloading a shell."
+            },{
+                name: "Break of Dawn",
+                perk: "Cunning",
+                cells: ["Power", "Mobility"],
+                element: "Radiant",
+                effect: "10% chance for attacks to hit twice."
+            },{
+                name: "Fall of Night",
+                perk: "Cunning",
+                cells: ["Power", "Utility"],
+                element: "Umbral",
+                effect: "When under 20% health, deal +50% damage."
+            },{
+                name: "Sovereign's Grudge",
+                perk: "Sharpened",
+                cells: ["Power", "Utility"],
+                element: "Terra",
+                effect: "After not dealing damage for 6 seconds, the next 2 attacks deal 25% increased damage."
+            },{
+                name: "Stalker's Price",
+                perk: "Wild Frenzy",
+                cells: ["Technique", "Utility"],
+                element: "Umbral",
+                effect: "Dealing damage has a chance (based on damage dealt) to generate a Shadow Orb that increases damage dealt by 2.5% for 5 seconds. If 5 or more Orbs are present, the bonus doubles."
+            },{
+                name: "Valomyr's Burden",
+                perk: "Aetherhunter",
+                cells: ["Power", "Utility"],
+                element: "Radiant",
+                effect: "Once charged, your next attack will deal 550 bonus radiant damage. Charge rate increases with current health."
+            },{
+                name: "Brutality of Boreus",
+                perk: "Conditioning",
+                cells: ["Power", "Defensive"],
+                element: "Frost",
+                effect: "Using Ammo generates a Frost Sprite that cause your next attack to deal 50 bonus damage and minor frost damage. Max 4 Sprites."
+            },{
+                name: "Molten Edict",
+                perk: "None",
+                cells: ["Power", "Defensive"],
+                element: "Blaze",
+                effect: "Replaces all hammer blasts with unique fireball abilities that deal blaze damage."
+            }],
         axes: [
-            
+            {
+                name: "Raging Bite",
+                perk: "Ragehunter",
+                cells: ["Power", "Utility"],
+                element: "None",
+                effect: "None"
+            },{
+                name: "Song of the Shrike",
+                perk: "Conditioning",
+                cells: ["Power", "Mobility"],
+                element: "None",
+                effect: "+100 part damage on next hit after a dodge."
+            },{
+                name: "Quillshot's Fury",
+                perk: "Acidic",
+                cells: ["Power", "Defensive"],
+                element: "None",
+                effect: "None"
+            },{
+                name: "Skarn's Judgement",
+                perk: "Knockout King",
+                cells: ["Power", "Defensive"],
+                element: "Terra",
+                effect: "Dealing damage has a chance (based on damage dealt) to grant a stacking, refreshing 40 health shield that lasts for 12s."
+            },{
+                name: "Charred Cleaver",
+                perk: "Aetherhunter",
+                cells: ["Power", "Defensive"],
+                element: "Blaze",
+                effect: "None"
+            },{
+                name: "Ember Scythe",
+                perk: "Evasive Fury",
+                cells: ["Power", "Mobility"],
+                element: "Blaze",
+                effect: "The fourth hit in quick succession deals 250 bonus part damage."
+            },{
+                name: "Winter Gale",
+                perk: "Nimble",
+                cells: ["Power", "Mobility"],
+                element: "Frost",
+                effect: "Evading drops a trio of Ice Mines on a 30 second cooldown."
+            },{
+                name: "Thundering Scythe",
+                perk: "Aetheric Attunement",
+                cells: ["Power", "Defensive"],
+                element: "Shock",
+                effect: "20% damage vs Behemoth Heads."
+            },{
+                name: "Nayzaga's Scythe",
+                perk: "Savagery",
+                cells: ["Power", "Utility"],
+                element: "Shock",
+                effect: "Heal 100 on perfectly charged vertical attacks."
+            },{
+                name: "Pangar's Grace",
+                perk: "Knockout King",
+                cells: ["Power", "Defensive"],
+                element: "Frost",
+                effect: "None"
+            },{
+                name: "Inferno's Decree",
+                perk: "Overpower",
+                cells: ["Power", "Power"],
+                element: "Blaze",
+                effect: "The sixth hit in quick succession deals 250 bonus damage and major blaze damage."
+            },{
+                name: "Storm Cutter",
+                perk: "Energized",
+                cells: ["Power", "Mobility"],
+                element: "Shock",
+                effect: "After dodging through an attack, the next weapon attack has 300% meter gain."
+            },{
+                name: "Kharabak's Claw",
+                perk: "Deconstruction",
+                cells: ["Power", "Technique"],
+                element: "Terra",
+                effect: "Combo finishers deal 200 bonus part damage."
+            },{
+                name: "Edge of Dawn",
+                perk: "Cunning",
+                cells: ["Power", "Mobility"],
+                element: "Radiant",
+                effect: "10% chance for attacks to hit twice."
+            },{
+                name: "Reaper of Night",
+                perk: "Cunning",
+                cells: ["Power", "Utility"],
+                element: "Umbral",
+                effect: "When under 20% health, deal +50% damage."
+            },{
+                name: "Sovereign's Wrath",
+                perk: "Sharpened",
+                cells: ["Power", "Utility"],
+                element: "Terra",
+                effect: "After not dealing damage for 6 seconds, the next 2 attacks deal 25% increased damage."
+            },{
+                name: "Stalker's Mercy",
+                perk: "Wild Frenzy",
+                cells: ["Technique", "Utility"],
+                element: "Umbral",
+                effect: "Dealing damage has a chance (based on damage dealt) to generate a Shadow Orb that increases damage dealt by 2.5% for 5 seconds. If 5 or more Orbs are present, the bonus doubles."
+            },{
+                name: "Valomyr's Decree",
+                perk: "Aetherhunter",
+                cells: ["Power", "Utility"],
+                element: "Radiant",
+                effect: "Once charged, your next attack will deal 550 bonus radiant damage. Charge rate increases with current health."
+            },{
+                name: "Turmoil of Boreus",
+                perk: "Conditioning",
+                cells: ["Power", "Defensive"],
+                element: "Frost",
+                effect: "Charge attacks generate Frost Sprites that cause your next attack to deal 50 bonus damage and minor frost damage. Max 4 Sprites."
+            }
         ],
         chainBlades: [
-
-        ],
+            {
+                name: "Raging Teeth",
+                perk: "Ragehunter",
+                cells: ["Technique", "Utility"],
+                element: "None",
+                effect: "None"
+            },{
+                name: "Flight of the Shrike",
+                perk: "Conditioning",
+                cells: ["Technique", "Mobility"],
+                element: "None",
+                effect: "+100 part damage on next hit after a dodge."
+            },{
+                name: "Quillshot's Bonehooks",
+                perk: "Acidic",
+                cells: ["Technique", "Defensive"],
+                element: "None",
+                effect: "None"
+            },{
+                name: "Skarn's Malice",
+                perk: "Weighted Strikes",
+                cells: ["Technique", "Defensive"],
+                element: "Terra",
+                effect: "Dealing damage has a chance (based on damage dealt) to grant a stacking, refreshing 40 health shield that lasts for 12s."
+            },{
+                name: "Charred Blades",
+                perk: "Aetherhunter",
+                cells: ["Technique", "Defensive"],
+                element: "Blaze",
+                effect: "None"
+            },{
+                name: "Winter Winds",
+                perk: "Nimble",
+                cells: ["Technique", "Mobility"],
+                element: "Frost",
+                effect: "Evading drops a trio of Ice Mines on a 30 second cooldown."
+            },{
+                name: "Ember Blades",
+                perk: "Evasive Fury",
+                cells: ["Technique", "Mobility"],
+                element: "Blaze",
+                effect: "The tenth hit in quick succession deals 250 bonus part damage."
+            },{
+                name: "Thundering Cutters",
+                perk: "Aetheric Attunement",
+                cells: ["Technique", "Power"],
+                element: "Shock",
+                effect: "20% damage vs Behemoth Tails."
+            },{
+                name: "Nayzaga's Reach",
+                perk: "Barbed",
+                cells: ["Utility", "Mobility"],
+                element: "Shock",
+                effect: "+5% lifesteal vs wounded parts "
+            },{
+                name: "Pangar's Claws",
+                perk: "Weighted Strikes",
+                cells: ["Technique", "Defensive"],
+                element: "Frost",
+                effect: "None"
+            },{
+                name: "Inferno's Fangs",
+                perk: "Overpower",
+                cells: ["Power", "Power"],
+                element: "Blaze",
+                effect: "The tenth hit in quick succession deals 250 bonus damage and major blaze damage."
+            },{
+                name: "Storm Blades",
+                perk: "Energized",
+                cells: ["Technique", "Mobility"],
+                element: "Shock",
+                effect: "After dodging through an attack, the next weapon attack has 300% meter gain."
+            },{
+                name: "Kharabak's Wings",
+                perk: "Bladestorm",
+                cells: ["Technique", "Mobility"],
+                element: "Terra",
+                effect: "None"
+            },{
+                name: "Fangs of Dawn",
+                perk: "Cunning",
+                cells: ["Technique", "Power"],
+                element: "Radiant",
+                effect: "10% chance for attacks to hit twice."
+            },{
+                name: "Eyes of Night",
+                perk: "Cunning",
+                cells: ["Technique", "Utility"],
+                element: "Umbral",
+                effect: "When under 20% health, deal +50% damage "
+            },{
+                name: "Sovereign's Lash",
+                perk: "Sharpened",
+                cells: ["Power", "Utility"],
+                element: "Terra",
+                effect: "After not dealing damage for 6 seconds, the next 4 attacks deal 25% increased damage."
+            },{
+                name: "Stalker's Trap",
+                perk: "Wild Frenzy",
+                cells: ["Technique", "Utility"],
+                element: "Umbral",
+                effect: "Dealing damage has a chance (based on damage dealt) to generate a Shadow Orb that increases damage dealt by 2.5% for 5 seconds. If 5 or more Orbs are present, the bonus doubles."
+            },{
+                name: "Valomyr's Revenge",
+                perk: "Aetherhunter",
+                cells: ["Power", "Utility"],
+                element: "Radiant",
+                effect: "Once charged, your next attack will deal 550 bonus radiant damage. Charge rate increases with current health."
+            },{
+                name: "Destiny of Boreus",
+                perk: "Conditioning",
+                cells: ["Power", "Defensive"],
+                element: "Frost",
+                effect: "Using a Special continually generates Frost Sprites that cause your next attack to deal 50 bonus damage and minor frost damage. Max 4 Sprites."
+            },{
+                name: "",
+                perk: "",
+                cells: ["", ""],
+                element: "",
+                effect: ""
+            }],
         warPikes: [
-
+            {
+                name: "Raging Cruelty",
+                perk: "Ragehunter",
+                cells: ["Technique", "Utility"],
+                element: "None",
+                effect: "None"
+            },{
+                name: "Scream of the Shrike",
+                perk: "Conditioning",
+                cells: ["Technique", "Mobility"],
+                element: "None",
+                effect: "+100 part damage on next hit after a dodge."
+            },{
+                name: "Quillshot's Javelin",
+                perk: "Acidic",
+                cells: ["Technique", "Defensive"],
+                element: "None",
+                effect: "None"
+            },{
+                name: "Skarn's Spite",
+                perk: "Weighted Strikes",
+                cells: ["Technique", "Defensive"],
+                element: "Terra",
+                effect: "Dealing damage has a chance (based on damage dealt) to grant a stacking, refreshing 40 health shield that lasts for 12s."
+            },{
+                name: "Charred Spear",
+                perk: "Aetherhunter",
+                cells: ["Technique", "Defensive"],
+                element: "Blaze",
+                effect: "None"
+            },{
+                name: "Winter Vortex",
+                perk: "Nimble",
+                cells: ["Technique", "Mobility"],
+                element: "Frost",
+                effect: "Evading drops a trio of Ice Mines on a 30 second cooldown."
+            },{
+                name: "Ember Pike",
+                perk: "Evasive Fury",
+                cells: ["Power", "Mobility"],
+                element: "Blaze",
+                effect: "The seventh hit in a row deals +300 wound damage."
+            },{
+                name: "Thundering Spear",
+                perk: "Aetheric Attunement",
+                cells: ["Technique", "Power"],
+                element: "Shock",
+                effect: "20% damage vs Behemoth Tails."
+            },{
+                name: "Nayzaga's Fang",
+                perk: "Barbed",
+                cells: ["Utility", "Mobility"],
+                element: "Shock",
+                effect: "+5% lifesteal vs wounded parts."
+            },{
+                name: "Pangar's Tooth",
+                perk: "Weighted Strikes",
+                cells: ["Technique", "Defensive"],
+                element: "Frost",
+                effect: "None"
+            },{
+                name: "Inferno's Arrow",
+                perk: "Overpower",
+                cells: ["Technique", "Defensive"],
+                element: "Blaze",
+                effect: "The eighth hit in quick succession deals 250 bonus damage and major blaze damage."
+            },{
+                name: "Storm Pike",
+                perk: "Energized",
+                cells: ["Technique", "Mobility"],
+                element: "Shock",
+                effect: "After dodging through an attack, the next weapon attack has 300% meter gain."
+            },{
+                name: "Kharabak's Sting",
+                perk: "Bladestorm",
+                cells: ["Technique", "Mobility"],
+                element: "Terra",
+                effect: "None"
+            },{
+                name: "Spire of Dawn",
+                perk: "Cunning",
+                cells: ["Technique", "Power"],
+                element: "Radiant",
+                effect: "10% chance for attacks to hit twice."
+            },{
+                name: "Gyre of Night",
+                perk: "Cunning",
+                cells: ["Technique", "Utility"],
+                element: "Umbral",
+                effect: "When under 20% health, deal +50% damage."
+            },{
+                name: "Sovereign's Sorrow",
+                perk: "Sharpened",
+                cells: ["Power", "Utility"],
+                element: "Terra",
+                effect: "After not dealing damage for 6 seconds, the next 5 attacks deal 25% increased damage."
+            },{
+                name: "Stalker's Spike",
+                perk: "Wild Frenzy",
+                cells: ["Technique", "Utility"],
+                element: "Umbral",
+                effect: "Dealing damage has a chance (based on damage dealt) to generate a Shadow Orb that increases damage dealt by 2.5% for 5 seconds. If 5 or more Orbs are present, the bonus doubles."
+            },{
+                name: "Valomyr's Hope",
+                perk: "Aetherhunter",
+                cells: ["Power", "Utility"],
+                element: "Radiant",
+                effect: "Once charged, your next attack will deal 550 bonus radiant damage. Charge rate increases with current health."
+            },{
+                name: "Revolution of Boreus",
+                perk: "Conditioning",
+                cells: ["Power", "Defensive"],
+                element: "Conditioning",
+                effect: "Using Ammo generates Frost Sprites (base on ammo quality) that cause your next attack to deal 50 bonus damage and minor frost damage. Max 4 Sprites."
+            },{
+                name: "The Godhand",
+                perk: "None",
+                cells: ["Power", "Technique"],
+                element: "Radiant",
+                effect: "Channel a beam that deals increasing damage, up to 200%, while it continues to hit a target."
+            }
         ],
-        repeaters: {
+        repeaters: [
+            {
                 name: "Ostian Repeaters",
                 perk: "None",
                 cells: ["Technique", "Mobility"],
                 perkCells: ["Technique", "Mobility"],
                 element: "Any"
-        }
+        }]
     },
     armour: {
         head: [
@@ -52,160 +619,140 @@ const equipment = {
                 perkCells: ["Technique", "Defensive"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Guise of the Rift",
                 perk: "Aetheric Attunement",
                 cell: "Utility",
                 perkCells: ["Utility", "Utility"],
                 element: "Umbral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Sight of Stone",
                 perk: "Tough",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Hellplate Casque",
                 perk: "Ragehunter",
                 cell: "Technique",
                 perkCells: ["Power", "Technique"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Draskscale Helmet",
                 perk: "Aetheric Attunement",
                 cell: "Power",
                 perkCells: ["Utility", "Power"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Boreal Epiphany",
                 perk: "Conditioning",
                 cell: "Utility",
                 perkCells: ["Mobility", "Utility"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Crest of Valour",
                 perk: "Lucent",
                 cell: "Power",
                 perkCells: ["Utility", "Power"],
                 element: "Radiant",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Fiery Helm",
                 perk: "Evasive Fury",
                 cell: "Mobility",
                 perkCells: ["Technique", "Mobility"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Gnasher Cap",
                 perk: "Bloodless",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Sight of Stone",
                 perk: "Tough",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Lightning Helm",
                 perk: "Energized",
                 cell: "Technique",
                 perkCells: ["Utility", "Technique"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Brow of Ice",
                 perk: "Knockout King",
                 cell: "Power",
                 perkCells: ["Power", "Power"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Visage of Thorns",
                 perk: "Agility",
                 cell: "Technique",
                 perkCells: ["Mobility", "Technique"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Shocking Gaze",
                 perk: "Medic",
                 cell: "Utility",
                 perkCells: ["Utility", "Utility"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Skraevwing Helmet",
                 perk: "Fleet Footed",
                 cell: "Mobility",
                 perkCells: ["Mobility", "Mobility"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Shrikedown Helm",
                 perk: "Evasion",
                 cell: "Technique",
                 perkCells: ["Mobility", "Technique"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Volcanic Helm",
                 perk: "Fireproof",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Eye of the Swarm",
                 perk: "Shellshock Resist",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Light's Crown",
                 perk: "Conduit",
                 cell: "Technique",
                 perkCells: ["Utility", "Technique"],
                 element: "Radiant",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Dark Watch",
                 perk: "Rage",
                 cell: "Power",
                 perkCells: ["Power", "Power"],
                 element: "Umbral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "The Skullforge",
                 perk: "None",
                 cell: "Defensive",
@@ -213,8 +760,7 @@ const equipment = {
                 element: "Blaze",
                 effect: "1.5% of all damage dealt becomes a stamina shield (max 50) that depletes first when spending stamina. Depletes slowly after 5 seconds not dealing damage.",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Prismatic Grace",
                 perk: "None",
                 cell: "Technique",
@@ -222,8 +768,7 @@ const equipment = {
                 element: "Radiant",
                 effect: "After reviving another player, grant them a Radiant Prism that blocks incoming damage for 5 seconds. The first time you take lethal damage, gain a Radiant Prism that blocks incoming damage for 10 seconds. While active, reviving another player fully restores both players but removes the Prism even at full danger.",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Tragic Echo",
                 perk: "None",
                 cell: "Power",
@@ -241,144 +786,126 @@ const equipment = {
                 perkCells: ["Technique", "Technique"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Shell of the Swarm",
                 perk: "Bladestorm",
                 cell: "Technique",
                 perkCells: ["Technique", "Technique"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Aegis of Valour",
                 perk: "Nine Lives",
                 cell: "Power",
                 perkCells: ["Defensive", "Power"],
                 element: "Radiant",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Draskscale Plate",
                 perk: "Aetheric Attunement",
                 cell: "Power",
                 perkCells: ["Utility", "Power"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Mantle of the Rift",
                 perk: "Conduit",
                 cell: "Utility",
                 perkCells: ["Utility", "Utility"],
                 element: "Umbral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Boreal Resolve",
                 perk: "Rage",
                 cell: "Defensive",
                 perkCells: ["Power", "Defensive"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Gnasher Cloak",
                 perk: "Tough",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Heart of Stone",
                 perk: "Guardian",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Skraevwing Jacket",
                 perk: "Adrenaline",
                 cell: "Mobility",
                 perkCells: ["Technique", "Mobility"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Volcanic Aegis",
                 perk: "Aetherhunter",
                 cell: "Utility",
                 perkCells: ["Power", "Utility"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Fiery Breastplate",
                 perk: "Evasive Fury",
                 cell: "Mobility",
                 perkCells: ["Technique", "Mobility"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Lightning Plate",
                 perk: "Energized",
                 cell: "Mobility",
                 perkCells: ["Utility", "Mobility"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Core of Ice",
                 perk: "Fortress",
                 cell: "Power",
                 perkCells: ["Defensive", "Power"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Mantle of Thorns",
                 perk: "Predator",
                 cell: "Utility",
                 perkCells: ["Technique", "Utility"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Quillspike Jacket",
                 perk: "Savagery",
                 cell: "Technique",
                 perkCells: ["Technique", "Technique"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Shocking Heart",
                 perk: "Medic",
                 cell: "Defensive",
                 perkCells: ["Utility", "Defensive"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Shrikedown Plate",
                 perk: "Evasion",
                 cell: "Mobility",
                 perkCells: ["Mobility", "Mobility"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Light's Virtue",
                 perk: "Cunning",
                 cell: "Utility",
                 perkCells: ["Technique", "Utility"],
                 element: "Radiant",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Dark Marrow",
                 perk: "Rage",
                 cell: "Power",
@@ -395,144 +922,126 @@ const equipment = {
                 perkCells: ["Utility", "Utility"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Draskscale Gauntlets",
                 perk: "Sharpened",
                 cell: "Utility",
                 perkCells: ["Power", "Utility"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Hellplate Bracers",
                 perk: "Molten",
                 cell: "Power",
                 perkCells: ["Technique", "Power"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Hands of the Rift",
                 perk: "Evasion",
                 cell: "Mobility",
                 perkCells: ["Mobility", "Mobility"],
                 element: "Umbral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Boreal Might",
                 perk: "Rage",
                 cell: "Power",
                 perkCells: ["Power", "Power"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Gauntlets of Valour",
                 perk: "Lucent",
                 cell: "Defensive",
                 perkCells: ["Utility", "Defensive"],
                 element: "Radiant",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Grasp of Thorns",
                 perk: "Evasive Fury",
                 cell: "Power",
                 perkCells: ["Technique", "Power"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Gnasher Grips",
                 perk: "Ragehunter",
                 cell: "Power",
                 perkCells: ["Power", "Power"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Might of Stone",
                 perk: "Fortress",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Quillspike Grips",
                 perk: "Barbed",
                 cell: "Technique",
                 perkCells: ["Technique", "Technique"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Skraevwing Gloves",
                 perk: "Warmth",
                 cell: "Mobility",
                 perkCells: ["Defensive", "Mobility"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Volcanic Grips",
                 perk: "Rage",
                 cell: "Utility",
                 perkCells: ["Power", "Utility"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Lightning Gloves",
                 perk: "Insulated",
                 cell: "Mobility",
                 perkCells: ["Defensive", "Mobility"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Fiery Gauntlets",
                 perk: "Fireproof",
                 cell: "Technique",
                 perkCells: ["Defensive", "Technique"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Arms of Ice",
                 perk: "Knockout King",
                 cell: "Defensive",
                 perkCells: ["Power", "Defensive"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Clutches of the Swarm",
                 perk: "Conditioning",
                 cell: "Mobility",
                 perkCells: ["Mobility", "Mobility"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Shrikedown Gloves",
                 perk: "Weighted Strikes",
                 cell: "Mobility",
                 perkCells: ["Technique", "Mobility"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Light's Refuge",
                 perk: "Conduit",
                 cell: "Technique",
                 perkCells: ["Utility", "Technique"],
                 element: "Radiant",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Dark Embrace",
                 perk: "Medic",
                 cell: "Utility",
@@ -549,151 +1058,133 @@ const equipment = {
                 perkCells: ["Technique", "Utility"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Striders of the Rift",
                 perk: "Conduit",
                 cell: "Mobility",
                 perkCells: ["Utility", "Mobility"],
                 element: "Umbral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Boreal March",
                 perk: "Iceborne",
                 cell: "Technique",
                 perkCells: ["Defensive", "Technique"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Draskscale Greaves",
                 perk: "Fleet Footed",
                 cell: "Utility",
                 perkCells: ["Mobility", "Utility"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Greaves of Valour",
                 perk: "Aetherhunter",
                 cell: "Utility",
                 perkCells: ["Power", "Utility"],
                 element: "Radiant",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Gnasher Treads",
                 perk: "Tough",
                 cell: "Power",
                 perkCells: ["Defensive", "Power"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Hellplate Greaves",
                 perk: "Fortress",
                 cell: "Power",
                 perkCells: ["Defensive", "Power"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Pillars of Stone",
                 perk: "Guardian",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Volcanic Treads",
                 perk: "Rage",
                 cell: "Power",
                 perkCells: ["Power", "Power"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Lightning Boots",
                 perk: "Aetheric Frenzy",
                 cell: "Mobility",
                 perkCells: ["Utility", "Mobility"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Fiery Greaves",
                 perk: "Evasion",
                 cell: "Defensive",
                 perkCells: ["Mobility", "Defensive"],
                 element: "Blaze",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Feet of Ice",
                 perk: "Warmth",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Quillspike Boots",
                 perk: "Shellshock Resist",
                 cell: "Technique",
                 perkCells: ["Defensive", "Technique"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Dance of the Swarm",
                 perk: "Conditioning",
                 cell: "Power",
                 perkCells: ["Mobility", "Power"],
                 element: "Terra",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Shocking Stride",
                 perk: "Insulated",
                 cell: "Defensive",
                 perkCells: ["Defensive", "Defensive"],
                 element: "Shock",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Shrikedown Greaves",
                 perk: "Bloodless",
                 cell: "Mobility",
                 perkCells: ["Defensive", "Mobility"],
                 element: "Neutral",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Skraevwing Boots",
                 perk: "Adrenaline",
                 cell: "Utility",
                 perkCells: ["Technique", "Utility"],
                 element: "Frost",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Light's Walk",
                 perk: "Agility",
                 cell: "Mobility",
                 perkCells: ["Mobility", "Mobility"],
                 element: "Radiant",
                 resistance: [25, 137.5]
-            },
-            {
+            },{
                 name: "Dark Path",
                 perk: "Nine Lives",
                 cell: "Utility",
                 perkCells: ["Defensive", "Utility"],
                 element: "Umbral",
                 resistance: [25, 137.5]
-            },
+            }
         ]
     },
     lanterns: [
@@ -702,43 +1193,37 @@ const equipment = {
             instantAbility: "Restore 25% of your maximum stamina.",
             holdAbility: "Create a frost pillar in front of you that deals 940 Frost damage to all nearby Behemoths over 12 seconds.",
             cell: "Utility",
-        },
-        {
+        },{
             name: "Shrike's Zeal",
             instantAbility: "Move 40% faster for 6 seconds.",
             holdAbility: "Creates an aura that grants nearby Slayers 15% increased move speed and attack speed for 15 seconds.",
             cell: "Utility",
-        },
-        {
+        },{
             name: "Skarn's Defiance",
             instantAbility: "Grants a 200 hit point shield for 4 seconds.",
             holdAbility: "Surrounds the slayer in swirling stone that deals 720 damage to all nearby Behemoths over 12 seconds.",
             cell: "Utility",
-        },
-        {
+        },{
             name: "Drask's Eye",
             instantAbility: "Deal 40% increased damage for 6 seconds.",
             holdAbility: "Fires a lightning bolt in a direction that deals 200 shock damage multiple times as it passes through a Behemoth.",
             cell: "Utility",
-        },
-        {
+        },{
             name: "Embermane's Rapture",
             instantAbility: "Attack 30% faster for 8 seconds.",
             holdAbility: "Create a frost pillar in front of you that deals 940 Frost damage to all nearby Behemoths over 12 seconds.",
             cell: "Utility",
-        },
-        {
+        },{
             name: "Koshai's Bloom",
             instantAbility: "10% of damage dealt will heal you for 8 seconds.",
             holdAbility: "Dash in a direction, deal 650 damage to nearby behemoths upon arrival.",
             cell: "Utility",
-        },
-        {
+        },{
             name: "Recruit's Lantern",
             instantAbility: "Grants a 50 hit point shield (doesn't stack).",
             holdAbility: "Disperses aether that allows the Slayer to track the Behemoth.",
             cell: "None",
-        },
+        }
     ]
 }
 
