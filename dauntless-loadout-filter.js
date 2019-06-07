@@ -742,6 +742,48 @@ const equipment = {
     ]
 }
 
+//Adds all of the perks to every dropdown in the html
+var perkOutput = ["<option selected>None</option>"];
+for (let i = 0; i < perks.Defensive.length; i++) {
+    perkOutput.push('<option value="', perks.Defensive[i], '">', perks.Defensive[i], '</option>');
+}
+
+$(".DefensiveNames").html(perkOutput.join(''));
+
+perkOutput = ["<option selected>None</option>"];
+for (let i = 0; i < perks.Mobility.length; i++) {
+    perkOutput.push('<option value="', perks.Mobility[i], '">', perks.Mobility[i], '</option>');
+}
+
+$(".MobilityNames").html(perkOutput.join(''));
+
+perkOutput = ["<option selected>None</option>"];
+for (let i = 0; i < perks.Power.length; i++) {
+    perkOutput.push('<option value="', perks.Power[i], '">', perks.Power[i], '</option>');
+}
+
+$(".PowerNames").html(perkOutput.join(''));
+
+perkOutput = ["<option selected>None</option>"];
+for (let i = 0; i < perks.Technique.length; i++) {
+    perkOutput.push('<option value="', perks.Technique[i], '">', perks.Technique[i], '</option>');
+}
+
+$(".TechniqueNames").html(perkOutput.join(''));
+
+perkOutput = ["<option selected>None</option>"];
+for (let i = 0; i < perks.Utility.length; i++) {
+    perkOutput.push('<option value="', perks.Utility[i], '">', perks.Utility[i], '</option>');
+}
+
+$(".UtilityNames").html(perkOutput.join(''));
+
+
+// function to automatically show the correct perks for the type selected
+function typeSelected(perkIndex, typeName) {
+    $("#" + perkIndex + " .perkNames").removeClass("activeType");
+    $("#" + perkIndex + " ." + typeName + "Names").addClass("activeType");
+}
 
 /*
 NOTE:
@@ -801,6 +843,12 @@ if (usingRepeaters || usingExoticWeapon || usingExoticHeadArmour) {
     if (usingExoticHeadArmour) {maxPerkSlots--}
 }
 
+//Quick and easy hiding on page load for now, need to add checkboxes for the exotics and repeaters with dynamic hiding
+for (let i = 11; i >= maxPerkSlots; i--) {
+    console.log("hi")
+    $("#perk" + i).addClass("hidden");
+}
+
 //Add code to auto-populate one of these perk slots if the user's desired weapon has a perk on it.
 //Weapon will not have a perk if usingRepeaters or usingExoticWeapon
 let desiredPerks = [
@@ -818,193 +866,211 @@ let desiredPerks = [
     {name: "", type: "", level: 0},
 ]
 
-//Loops through desiredPerks and finds the totalUniquePerks, totalPerkSlotsUsed,
-//each cell type's count, and populates the cellsUsed array
-let utilityCount = 0, techniqueCount = 0, mobilityCount = 0, powerCount = 0, defensiveCount = 0, cellsUsed = []
-for (let i = 0; i < desiredPerks.length; i++) {
-    if (desiredPerks[i]["name"].length > 0) {
-        totalUniquePerks++
-        if (desiredPerks[i]["level"] > 3) {
-            console.log(`${desiredPerks[i]["name"]} requires two perk slots.`)
-            totalPerkSlotsUsed += 2
-            switch (desiredPerks[i]["type"]) {
-                case "Utility":
-                    utilityCount += 2
-                    cellsUsed.push("Utility")
-                    break;
-                case "Technique":
-                    techniqueCount += 2
-                    cellsUsed.push("Technique")
-                    break;
-                case "Mobility":
-                    mobilityCount += 2
-                    cellsUsed.push("Mobility")
-                    break;
-                case "Power":
-                    powerCount += 2
-                    cellsUsed.push("Power")
-                    break;
-                case "Defensive":
-                    defensiveCount += 2
-                    cellsUsed.push("Defensive")
-                    break;
+function getResults(e) {
+    e.preventDefault();
+    desiredPerks = [];
+    for (let i = 0; i < maxPerkSlots; i++) {
+        if ($("#perk" + i + " select").val() !== "None" && $("#perk" + i + " .activeType").val() !== "None") {
+            desiredPerks.push({ name: $("#perk" + i + " .activeType").val(), type: $("#perk" + i + " select").val(),  level: parseInt($("#perk" + i + " .perkLevels").val())});
+        }
+    }
+    if (desiredPerks.length > 0) {
+        totalPerkSlotsUsed = 0;
+        totalUniquePerks = 0;
+        getSets();
+    }
+}
+
+function getSets() {
+    //Loops through desiredPerks and finds the totalUniquePerks, totalPerkSlotsUsed,
+    //each cell type's count, and populates the cellsUsed array
+    let utilityCount = 0, techniqueCount = 0, mobilityCount = 0, powerCount = 0, defensiveCount = 0, cellsUsed = []
+    for (let i = 0; i < desiredPerks.length; i++) {
+        if (desiredPerks[i]["name"].length > 0) {
+            totalUniquePerks++
+            if (desiredPerks[i]["level"] > 3) {
+                console.log(`${desiredPerks[i]["name"]} requires two perk slots.`)
+                totalPerkSlotsUsed += 2
+                switch (desiredPerks[i]["type"]) {
+                    case "Utility":
+                        utilityCount += 2
+                        cellsUsed.push("Utility")
+                        break;
+                    case "Technique":
+                        techniqueCount += 2
+                        cellsUsed.push("Technique")
+                        break;
+                    case "Mobility":
+                        mobilityCount += 2
+                        cellsUsed.push("Mobility")
+                        break;
+                    case "Power":
+                        powerCount += 2
+                        cellsUsed.push("Power")
+                        break;
+                    case "Defensive":
+                        defensiveCount += 2
+                        cellsUsed.push("Defensive")
+                        break;
+                }
+            }
+            else if (desiredPerks[i]["level"] > 0) {
+                console.log(`${desiredPerks[i]["name"]} requires one perk slot.`)
+                totalPerkSlotsUsed++
+                switch (desiredPerks[i]["type"]) {
+                    case "Utility":
+                        utilityCount++
+                        cellsUsed.push("Utility")
+                        break;
+                    case "Technique":
+                        techniqueCount++
+                        cellsUsed.push("Technique")
+                        break;
+                    case "Mobility":
+                        mobilityCount++
+                        cellsUsed.push("Mobility")
+                        break;
+                    case "Power":
+                        powerCount++
+                        cellsUsed.push("Power")
+                        break;
+                    case "Defensive":
+                        defensiveCount++
+                        cellsUsed.push("Defensive")
+                        break;
+                }
             }
         }
-        else if (desiredPerks[i]["level"] > 0) {
-            console.log(`${desiredPerks[i]["name"]} requires one perk slot.`)
-            totalPerkSlotsUsed++
-            switch (desiredPerks[i]["type"]) {
-                case "Utility":
-                    utilityCount++
-                    cellsUsed.push("Utility")
-                    break;
-                case "Technique":
-                    techniqueCount++
-                    cellsUsed.push("Technique")
-                    break;
-                case "Mobility":
-                    mobilityCount++
-                    cellsUsed.push("Mobility")
-                    break;
-                case "Power":
-                    powerCount++
-                    cellsUsed.push("Power")
-                    break;
-                case "Defensive":
-                    defensiveCount++
-                    cellsUsed.push("Defensive")
-                    break;
+    }
+
+    /*
+    Here the program is removing the weapon and lantern from the perk cellCounts.
+    The program should look at the weapon and determine what cellCounts are being used and make the appropriate
+    deductions from the counts which were created above.
+
+    Currently the program requires it be done manually, but ideally there should be some logic that takes user weapon input
+    and deducts weapon cells from the counts automatically based on the database information.
+    */
+    utilityCount-- //Lantern always has one utility cell, so it is subtracted from the required count here.
+    if (usingRepeaters) {
+        console.log("Using Repeaters: " + true)
+        techniqueCount--
+        mobilityCount = 0 //Find a better way to do this. Will cause bugs if someone WANTS a 6/6 mobility perk.
+    }
+    else {
+        //If user's weapon has two power cells and one power perk, subtract 3 from the powerCount.
+        powerCount -= 3
+    }
+
+    cellsUsed = [...new Set(cellsUsed)] //removes duplicate cell entries
+    console.log(cellsUsed)
+
+    if (totalPerkSlotsUsed < maxPerkSlots) {
+        console.log(`You still have ${maxPerkSlots - totalPerkSlotsUsed} perk slot(s) available ${totalPerkSlotsUsed}/${maxPerkSlots}.
+        \nYou can increase a perk's level to be above 3 or add a new perk.`)
+    }
+    else if (totalPerkSlotsUsed > maxPerkSlots) {
+        console.log(`${totalPerkSlotsUsed - maxPerkSlots} too many perk slot(s) in use ${totalPerkSlotsUsed}/${maxPerkSlots}.
+        \nYou must decrease a perk's level or remove a perk.`)
+    }
+    console.log(`Required Cells: `)
+    console.log(`Utility: ${utilityCount}`)
+    console.log(`Technique: ${techniqueCount}`)
+    console.log(`Mobility: ${mobilityCount}`)
+    console.log(`Power: ${powerCount}`)
+    console.log(`Defensive: ${defensiveCount}`)
+
+    //There's probably a way to achieve the result below in a single for loop.
+    const potentialHeadArmour = [], potentialTorsoArmour = [], potentialArmsArmour = [], potentialLegsArmour = []
+    for (let i = 0; i < head.length; i++) {
+        for (let j = 0; j < totalUniquePerks; j++) {
+            if (desiredPerks[j]["name"].includes(head[i].perk) && cellsUsed.includes(head[i].cell)) {
+                potentialHeadArmour.push(head[i])
             }
+            
         }
     }
-}
-
-/*
-Here the program is removing the weapon and lantern from the perk cellCounts.
-The program should look at the weapon and determine what cellCounts are being used and make the appropriate
-deductions from the counts which were created above.
-
-Currently the program requires it be done manually, but ideally there should be some logic that takes user weapon input
-and deducts weapon cells from the counts automatically based on the database information.
-*/
-utilityCount-- //Lantern always has one utility cell, so it is subtracted from the required count here.
-if (usingRepeaters) {
-    console.log("Using Repeaters: " + true)
-    techniqueCount--
-    mobilityCount = 0 //Find a better way to do this. Will cause bugs if someone WANTS a 6/6 mobility perk.
-}
-else {
-    //If user's weapon has two power cells and one power perk, subtract 3 from the powerCount.
-    powerCount -= 3
-}
-
-cellsUsed = [...new Set(cellsUsed)] //removes duplicate cell entries
-console.log(cellsUsed)
-
-if (totalPerkSlotsUsed < maxPerkSlots) {
-    console.log(`You still have ${maxPerkSlots - totalPerkSlotsUsed} perk slot(s) available ${totalPerkSlotsUsed}/${maxPerkSlots}.
-    \nYou can increase a perk's level to be above 3 or add a new perk.`)
-}
-else if (totalPerkSlotsUsed > maxPerkSlots) {
-    console.log(`${totalPerkSlotsUsed - maxPerkSlots} too many perk slot(s) in use ${totalPerkSlotsUsed}/${maxPerkSlots}.
-    \nYou must decrease a perk's level or remove a perk.`)
-}
-console.log(`Required Cells: `)
-console.log(`Utility: ${utilityCount}`)
-console.log(`Technique: ${techniqueCount}`)
-console.log(`Mobility: ${mobilityCount}`)
-console.log(`Power: ${powerCount}`)
-console.log(`Defensive: ${defensiveCount}`)
-
-//There's probably a way to achieve the result below in a single for loop.
-const potentialHeadArmour = [], potentialTorsoArmour = [], potentialArmsArmour = [], potentialLegsArmour = []
-for (let i = 0; i < head.length; i++) {
-    for (let j = 0; j < totalUniquePerks; j++) {
-        if (desiredPerks[j]["name"].includes(head[i].perk) && cellsUsed.includes(head[i].cell)) {
-            potentialHeadArmour.push(head[i])
+    for (let i = 0; i < torso.length; i++) {
+        for (let j = 0; j < totalUniquePerks; j++) {
+            if (desiredPerks[j]["name"].includes(torso[i].perk) && cellsUsed.includes(torso[i].cell)) {
+                potentialTorsoArmour.push(torso[i])
+            }
+            
         }
-        
     }
-}
-for (let i = 0; i < torso.length; i++) {
-    for (let j = 0; j < totalUniquePerks; j++) {
-        if (desiredPerks[j]["name"].includes(torso[i].perk) && cellsUsed.includes(torso[i].cell)) {
-            potentialTorsoArmour.push(torso[i])
+    for (let i = 0; i < arms.length; i++) {
+        for (let j = 0; j < totalUniquePerks; j++) {
+            if (desiredPerks[j]["name"].includes(arms[i].perk) && cellsUsed.includes(arms[i].cell)) {
+                potentialArmsArmour.push(arms[i])
+            }
+            
         }
-        
     }
-}
-for (let i = 0; i < arms.length; i++) {
-    for (let j = 0; j < totalUniquePerks; j++) {
-        if (desiredPerks[j]["name"].includes(arms[i].perk) && cellsUsed.includes(arms[i].cell)) {
-            potentialArmsArmour.push(arms[i])
+    for (let i = 0; i < legs.length; i++) {
+        for (let j = 0; j < totalUniquePerks; j++) {
+            if (desiredPerks[j]["name"].includes(legs[i].perk) && cellsUsed.includes(legs[i].cell)) {
+                potentialLegsArmour.push(legs[i])
+            }
+            
         }
-        
     }
-}
-for (let i = 0; i < legs.length; i++) {
-    for (let j = 0; j < totalUniquePerks; j++) {
-        if (desiredPerks[j]["name"].includes(legs[i].perk) && cellsUsed.includes(legs[i].cell)) {
-            potentialLegsArmour.push(legs[i])
-        }
-        
-    }
-}
 
-console.log(potentialHeadArmour)
-console.log(potentialTorsoArmour)
-console.log(potentialArmsArmour)
-console.log(potentialLegsArmour)
+    console.log(potentialHeadArmour)
+    console.log(potentialTorsoArmour)
+    console.log(potentialArmsArmour)
+    console.log(potentialLegsArmour)
 
-// Uses the four arrays created above to form a single array which contains every potential item combination.
-const listOfPotentialArmour = []
-potentialHeadArmour.forEach(headArmour => {
-    potentialTorsoArmour.forEach(torsoArmour => {
-        potentialArmsArmour.forEach(armsArmour => {
-            potentialLegsArmour.forEach(legsArmour => {
-                listOfPotentialArmour.push(headArmour, torsoArmour, armsArmour, legsArmour) //adds every possible item combo into a single array.
+    // Uses the four arrays created above to form a single array which contains every potential item combination.
+    const listOfPotentialArmour = []
+    potentialHeadArmour.forEach(headArmour => {
+        potentialTorsoArmour.forEach(torsoArmour => {
+            potentialArmsArmour.forEach(armsArmour => {
+                potentialLegsArmour.forEach(legsArmour => {
+                    listOfPotentialArmour.push(headArmour, torsoArmour, armsArmour, legsArmour) //adds every possible item combo into a single array.
+                })
             })
         })
     })
-})
 
-/*
-Splits the array created above into smaller 4-length arrays which are then filtered based on perk count.
-If one of the smaller arrays has the exact amount of each perk type required, it is output as a possible loadout and the
-found count of each cell is reset to zero. This is probably buggy, although I can't prove it since it works for every
-test I've done.
-*/
-let i, loadoutArray = [], sliceSize = 4
-for (let i = 0; i < listOfPotentialArmour.length; i += sliceSize) {
-    loadoutArray = listOfPotentialArmour.slice(i, i + sliceSize)
-    let techniqueFound = 0, utilityFound = 0, powerFound = 0, defensiveFound = 0, mobilityFound = 0
-    loadoutArray.forEach(item => {
-        if (item["perkCells"][0] === "Technique") {techniqueFound++}
-        if (item["perkCells"][0] === "Utility") {utilityFound++}
-        if (item["perkCells"][0] === "Power") {powerFound++}
-        if (item["perkCells"][0] === "Defensive") {defensiveFound++}
-        if (item["perkCells"][0] === "Mobility") {mobilityFound++}
-        if (item["perkCells"][1] === "Technique") {techniqueFound++}
-        if (item["perkCells"][1] === "Utility") {utilityFound++}
-        if (item["perkCells"][1] === "Power") {powerFound++}
-        if (item["perkCells"][1] === "Defensive") {defensiveFound++}
-        if (item["perkCells"][1] === "Mobility") {mobilityFound++}
-        if(techniqueCount === techniqueFound) {
-            if (utilityCount === utilityFound) {
-                if (powerCount === powerFound) {
-                    if (defensiveCount === defensiveFound) {
-                        if (mobilityCount === mobilityFound) {
-                            console.log(`Loadout Possbility:`)
-                            console.log(loadoutArray)
-                            techniqueFound = 0
-                            utilityFound = 0
-                            powerFound = 0
-                            defensiveFound = 0
-                            mobilityFound = 0
+    /*
+    Splits the array created above into smaller 4-length arrays which are then filtered based on perk count.
+    If one of the smaller arrays has the exact amount of each perk type required, it is output as a possible loadout and the
+    found count of each cell is reset to zero. This is probably buggy, although I can't prove it since it works for every
+    test I've done.
+    */
+    let i, loadoutArray = [], sliceSize = 4
+    for (let i = 0; i < listOfPotentialArmour.length; i += sliceSize) {
+        loadoutArray = listOfPotentialArmour.slice(i, i + sliceSize)
+        let techniqueFound = 0, utilityFound = 0, powerFound = 0, defensiveFound = 0, mobilityFound = 0
+        loadoutArray.forEach(item => {
+            if (item["perkCells"][0] === "Technique") {techniqueFound++}
+            if (item["perkCells"][0] === "Utility") {utilityFound++}
+            if (item["perkCells"][0] === "Power") {powerFound++}
+            if (item["perkCells"][0] === "Defensive") {defensiveFound++}
+            if (item["perkCells"][0] === "Mobility") {mobilityFound++}
+            if (item["perkCells"][1] === "Technique") {techniqueFound++}
+            if (item["perkCells"][1] === "Utility") {utilityFound++}
+            if (item["perkCells"][1] === "Power") {powerFound++}
+            if (item["perkCells"][1] === "Defensive") {defensiveFound++}
+            if (item["perkCells"][1] === "Mobility") {mobilityFound++}
+            if(techniqueCount === techniqueFound) {
+                if (utilityCount === utilityFound) {
+                    if (powerCount === powerFound) {
+                        if (defensiveCount === defensiveFound) {
+                            if (mobilityCount === mobilityFound) {
+                                console.log(`Loadout Possbility:`)
+                                console.log(loadoutArray)
+                                techniqueFound = 0
+                                utilityFound = 0
+                                powerFound = 0
+                                defensiveFound = 0
+                                mobilityFound = 0
+                            }
                         }
                     }
                 }
             }
-        }
-    })
+        })
+    }
 }
+getSets();
